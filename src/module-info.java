@@ -1,2 +1,3 @@
-module algo {
+module main {
+	requires java.desktop;
 }
