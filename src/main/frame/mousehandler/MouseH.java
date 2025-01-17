@@ -18,7 +18,9 @@ public class MouseH extends MouseAdapter {
        Object source = e.getSource();
 			if (source instanceof JPanel) {
 				JPanel j = (JPanel) source;
-	            j.setBackground(Color.RED);  // Change color when panel is clicked
+				if (j.getBackground() == Color.RED) {
+					j.setBackground(Color.BLACK);
+				} else j.setBackground(Color.RED);
 	                   
 		}
     }
