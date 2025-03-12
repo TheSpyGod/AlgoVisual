@@ -4,13 +4,13 @@ import java.util.Random;
 
 public class Block {
 	public int x, y;
-	public double contents;
+	public int contents;
 	static public Block[] ids;
 	static private final Random rand = new Random();
 
 	public Block() {}
 
-	private Block(int x, int y, double contents) {
+	private Block(int x, int y, int contents) {
 		this.x = x;
 		this.y = y;
 		this.contents = contents;
@@ -48,7 +48,7 @@ public class Block {
 				break;
 			}
 		}
-		return ids;
+		return ids;	
 	}
 
 }

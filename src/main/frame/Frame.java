@@ -1,7 +1,13 @@
 package main.frame;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.*;
 
@@ -21,38 +27,45 @@ public class Frame {
 		jf.setSize(width, height);
 		frameHeight = height;
 		frameWidth = width;
-		jf.setVisible(true);
 		jf.setResizable(false);
 		m = new MouseH(this);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jf.setLayout(new GridBagLayout());
+		
+		jf.setLocationRelativeTo(null);
+		jf.setVisible(true);
 	}
 	
 	public void createBlocks(int x, int y, int size) {
 		setContent(x, y, size);
-		var space = 5;
 		for (Block i: container) {
-			p = createPanel(space, i);
+			p = createPanel(i);
 			l = createLabel("Arial", i, y);
 			p.add(l);
 			p.addMouseListener(m);
 			jf.add(p);	
-			space+=40;
 		}
+		jf.revalidate();
+		jf.repaint();
 	}	
+	
+	public void updateFrame(int x, int y, int size) {
+		jf.getContentPane().removeAll();
+		createBlocks(x,y,size);
+	}
 	
 	private JLabel createLabel(String font, Block content, int y) {
 		l = new JLabel(String.valueOf(content.contents));
 		l.setForeground(Color.WHITE);
 		l.setFont(new Font(font, Font.BOLD, y / 2 - 3));
-		l.setBounds(0, 0, content.x, content.y);
 		l.setOpaque(false);
-		return l;
+		return l;	
 	}
 	
-	private JPanel createPanel(int spaceBetween, Block content) {
+	private JPanel createPanel(Block content) {
 		p = new JPanel();
 		p.setBackground(Color.BLACK);
-		p.setBounds(spaceBetween, (frameHeight >> 2) * 3, content.x, content.y);
+		p.setPreferredSize(new Dimension(content.x, content.y));
 		return p;
 	}
 	
@@ -75,5 +88,10 @@ public class Frame {
 	
 	public JPanel getPanel() {
 		return p;
+	}
+	
+	public void RepaintFrame() {
+		jf.revalidate();
+		jf.repaint();
 	}
 }

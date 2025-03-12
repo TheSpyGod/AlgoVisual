@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.*;
 
 import main.frame.*;
+import main.models.Block;
 public class Anim {
 	Frame f;
 	JFrame currFrame;
