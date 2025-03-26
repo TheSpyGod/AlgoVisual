@@ -15,8 +15,8 @@ public class Logic {
 	public void BubbleSort() {
 		for (int i = 0; i < ids.length - 1; i++) {
 			for (int j = 0; j < ids.length - 1; j++) {
-				if (ids[i].contents < ids[i + 1].contents) {
-					SwapValues(ids[i], ids[i + 1]);
+				if (ids[j].contents < ids[j + 1].contents) {
+					SwapValues(ids[j], ids[j + 1]);
 				}	
 			}
 		}

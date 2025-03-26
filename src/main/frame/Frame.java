@@ -1,4 +1,4 @@
-package main.frame;
+	package main.frame;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -21,7 +21,7 @@ public class Frame {
 	private int frameHeight, frameWidth;
 	private Block block = new Block();
 	private Block[] container;
-	
+	private JButton btn;
 	public Frame(int height, int width, String title) {
 		jf.setTitle(title);
 		jf.setSize(width, height);
@@ -33,11 +33,28 @@ public class Frame {
 		jf.setLayout(new GridBagLayout());
 		
 		jf.setLocationRelativeTo(null);
+		createButton(200, 200, 20, 40, "Hello", Color.BLACK);
 		jf.setVisible(true);
 	}
 	
-	public void createBlocks(int x, int y, int size) {
-		setContent(x, y, size);
+	public void createButton(int x, int y, int width, int height, String label, Color color) {
+		btn = new JButton(label);
+		btn.setBounds(x,y,width,height);
+		btn.setBackground(color);
+		btn.setForeground(color.BLACK);
+		
+		jf.add(btn);
+		jf.revalidate();
+	    jf.repaint();
+	}
+	
+	// Overload function with defaults
+	public void createButton(int x, int y, int width, int height) {
+		
+	}
+	
+	public void createBlocks(int x, int y, int size, boolean random) {
+		setContent(x, y, size, random);
 		for (Block i: container) {
 			p = createPanel(i);
 			l = createLabel("Arial", i, y);
@@ -49,9 +66,9 @@ public class Frame {
 		jf.repaint();
 	}	
 	
-	public void updateFrame(int x, int y, int size) {
+	public void updateFrame(int x, int y, int size, boolean random) {
 		jf.getContentPane().removeAll();
-		createBlocks(x,y,size);
+		createBlocks(x,y,size, random);
 	}
 	
 	private JLabel createLabel(String font, Block content, int y) {
@@ -73,8 +90,8 @@ public class Frame {
 		jf.setVisible(visible);
 	}
 	
-	private void setContent(int x, int y, int size) {
-		block.populateBlocksRandom(x,y,size);
+	private void setContent(int x, int y, int size, boolean random) {
+		if (random) block.populateBlocksRandom(x,y,size);
 		container = block.getIds();
 	}
 	
