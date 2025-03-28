@@ -23,4 +23,13 @@ public class Anim {
 			}
 		}
 	}
+	
+	public void SwapBlocks(Block b1, Block b2) {
+		for (var i: currFrame.getContentPane().getComponents()) {
+			if (i instanceof JPanel) {
+				JPanel p = (JPanel) i;
+				
+			}
+		}
+	}
 }

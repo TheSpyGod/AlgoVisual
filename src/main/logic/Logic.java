@@ -2,25 +2,127 @@ package main.logic;
 
 import main.models.Block;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.concurrent.CountDownLatch;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
 import main.frame.*;
 public class Logic {
 	
 	Frame instance;
 	Block[] ids;
+	JPanel[] PanelArr;
 	public Logic(Frame frameinstance) {
 		instance = frameinstance;
 		ids = instance.getContent();
 	}
 	
-	public void BubbleSort() {
+	public void pauseGUI(int delay) {
+	    CountDownLatch latch = new CountDownLatch(1); 
+	    
+	    Timer pauseTimer = new Timer(delay, new ActionListener() {
+	        public void actionPerformed(ActionEvent evt) {
+	            latch.countDown();
+	            ((Timer) evt.getSource()).stop();
+	        }
+	    });
+
+	    pauseTimer.setRepeats(false);
+	    pauseTimer.start();
+
+	    try {
+	        latch.await();
+	    } catch (InterruptedException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	private void RepaintArray() {
+		for(int i = 0; i < ids.length; i++) {
+			PanelArr[i].removeAll();
+            JLabel label = new JLabel(String.valueOf(ids[i].contents));
+            label.setBounds(8, 0, 30, 30);
+            label.setForeground(Color.WHITE);
+            PanelArr[i].add(label);
+            PanelArr[i].revalidate();
+            PanelArr[i].repaint();
+		}
+	}
+	
+	public void BubbleSort(){
+		PanelArr = instance.getPanelArray();
+		RepaintArray();
 		for (int i = 0; i < ids.length - 1; i++) {
 			for (int j = 0; j < ids.length - 1; j++) {
 				if (ids[j].contents < ids[j + 1].contents) {
-					SwapValues(ids[j], ids[j + 1]);
+					 final int index = j; 
+					 
+					 	PanelArr[index].setLocation(PanelArr[index].getX(), PanelArr[index].getY() - 30);
+		                PanelArr[index + 1].setLocation(PanelArr[index + 1].getX(), PanelArr[index + 1].getY() - 30);
+		                
+		                PanelArr[index].setBackground(Color.green);
+		                PanelArr[index + 1].setBackground(Color.green);
+		                
+		                PanelArr[index].removeAll();
+		                PanelArr[index + 1].removeAll();
+		                
+		                JLabel label1 = new JLabel(String.valueOf(ids[index].contents));
+		                JLabel label2 = new JLabel(String.valueOf(ids[index + 1].contents));
+		                
+		                label1.setBounds(8, 0, 30, 30);
+		                label2.setBounds(8, 0, 30, 30);
+		                
+		                label1.setForeground(Color.BLACK);
+		                label2.setForeground(Color.BLACK);
+		                
+		                PanelArr[index].add(label1);
+		                PanelArr[index + 1].add(label2);
+		                
+		                PanelArr[index].revalidate();
+		                PanelArr[index].repaint();
+		                PanelArr[index + 1].revalidate();
+		                PanelArr[index + 1].repaint();
+
+		                pauseGUI(1000);
+
+		                PanelArr[index].setLocation(PanelArr[index].getX(), PanelArr[index].getY() + 30);
+		                PanelArr[index + 1].setLocation(PanelArr[index + 1].getX(), PanelArr[index + 1].getY() + 30);
+		                	            
+		                PanelArr[index].setBackground(Color.BLACK);
+		                PanelArr[index + 1].setBackground(Color.BLACK);
+		                
+		                PanelArr[index].removeAll();
+		                PanelArr[index + 1].removeAll();
+		                
+		                label1 = new JLabel(String.valueOf(ids[index + 1].contents));
+		                label2 = new JLabel(String.valueOf(ids[index].contents));
+		                
+		                label1.setBounds(8, 0, 30, 30);
+		                label2.setBounds(8, 0, 30, 30);
+		                
+		                label1.setForeground(Color.WHITE);
+		                label2.setForeground(Color.WHITE);
+		                
+		                PanelArr[index].add(label1);
+		                PanelArr[index + 1].add(label2);
+		                
+		                PanelArr[index].revalidate();
+		                PanelArr[index].repaint();
+		                PanelArr[index + 1].revalidate();
+		                PanelArr[index + 1].repaint();
+		                
+		                SwapValues(ids[index], ids[index + 1]);
+
+		                instance.RepaintFrame();
 				}	
 			}
 		}
-		instance.RepaintFrame();
+		RepaintArray();
 	}
 		
 	public void TestSwap() {
@@ -28,10 +130,10 @@ public class Logic {
 		instance.RepaintFrame();
 	}
 	
-	public void SwapValues(Block block_1, Block block_2) {
-		int temp = block_1.contents;
-		block_1.contents = block_2.contents;
-		block_2.contents = temp;
+	public void SwapValues(Block b1, Block b2) {
+		int temp = b1.contents;
+		b1.contents = b2.contents;
+		b2.contents = temp;
 	}
 	
 }

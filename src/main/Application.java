@@ -12,9 +12,8 @@ public class Application {
 	static private Logic l;
 	public static void main(String[] args) {
 		f = new Frame(500,500, "Title");
-		f.createBlocks(30,30,10, true);
+		f.createBlocks(380,200,10, true);
 		l = new Logic(f);
 		l.BubbleSort();
-		f.updateFrame(30, 30, 10, false);
 	}
 }
