@@ -14,7 +14,6 @@ public class MouseH extends MouseAdapter {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-        // Called when the mouse is clicked
        Object source = e.getSource();
 			if (source instanceof JPanel) {
 				JPanel j = (JPanel) source;

@@ -17,7 +17,7 @@ public class Block {
 	}
 
 	public Block[] getIds() {
-		return ids;
+		return ids;	
 	}
 
 	private boolean initBlocks(int arrSize) {

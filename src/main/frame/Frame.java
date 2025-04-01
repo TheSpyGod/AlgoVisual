@@ -5,15 +5,20 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 import main.frame.mousehandler.MouseH;
+import main.logic.*;
 import main.models.*;
 public class Frame {
 	private JFrame jf = new JFrame();
 	private JPanel p;
+	private Boolean pressed = false;
 	private JLabel l;
+	private Logic logic;
 	private JPanel[] PanelArr;
 	private MouseH m;
 	private int frameHeight, frameWidth;
@@ -31,22 +36,41 @@ public class Frame {
 		jf.setLayout(null);
 		
 		jf.setLocationRelativeTo(null);
-		//createButton(400, 200, 20, 40, "Hello", Color.BLACK);
+		createButton(15, 15, 110, 25, "Bubble Sort");
+		createButton(150, 15, 110, 25, "Quicksort");
 		jf.setVisible(true);
 	}
 	
-	public void createButton(int x, int y, int width, int height, String label, Color color) {
+	public void createButton(int x, int y, int width, int height, String label) {
 		btn = new JButton(label);
 		btn.setBounds(x,y,width,height);
-		btn.setBackground(color);
-		btn.setForeground(Color.BLACK);
-		
+		btn.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){  
+				if (!pressed) {
+				new Thread(() -> {
+					pressed = true;
+		            logic = new Logic(Frame.this);
+		            switch (label) {
+		            case "Bubble Sort":
+		            	logic.BubbleSort();
+		            	break;
+		            }
+		            SwingUtilities.invokeLater(() -> pressed = false);
+		        }).start();
+				}
+	        }  
+	    });  
 		jf.add(btn);
 		jf.revalidate();
 	    jf.repaint();
 	}
 
 	public void createBlocks(int x, int y, int size, boolean random) {
+		if (PanelArr != null) {
+			for (JPanel p : PanelArr) {
+				jf.remove(p);
+			}
+		}
 		PanelArr = new JPanel[size];
 		setContent(x, y, size, random);
 		int j = 0;
@@ -59,7 +83,7 @@ public class Frame {
 			l = createLabel("Arial", i, y);
 			p.add(l);
 			p.addMouseListener(m);
-			jf.add(p);	
+			jf.add(p);		
 		}
 		jf.revalidate();
 		jf.repaint();
