@@ -53,47 +53,27 @@ public class Logic {
 		}
 	}
 
-	private void AnimateSquares(int index, Color baseColor, Color secondaryColor) {
+	//<summary>
+	//
+	// This function takes two indexes, the base color of the square and the secondary highlight color
+	// It then calculates the distance between the squares, then switches their places while highlighting them
+	//
+	//<summary>
+	private void AnimateSquares(int i1, int i2, Color baseColor, Color secondaryColor) {
 		
-		PanelArr[index].setLocation(PanelArr[index].getX(), PanelArr[index].getY() - 30);
-        PanelArr[index + 1].setLocation(PanelArr[index + 1].getX(), PanelArr[index + 1].getY() - 30);
+		int distance = i2 - i1;
+		
+		PanelArr[i1].setLocation(PanelArr[i1].getX(), PanelArr[i1].getY() - 30);
+        PanelArr[i2].setLocation(PanelArr[i2].getX(), PanelArr[i2].getY() - 30);
         
-        PanelArr[index].setBackground(secondaryColor);
-        PanelArr[index + 1].setBackground(secondaryColor);
+        PanelArr[i1].setBackground(secondaryColor);
+        PanelArr[i2].setBackground(secondaryColor);
         
-        PanelArr[index].removeAll();
-        PanelArr[index + 1].removeAll();
+        PanelArr[i1].removeAll();
+        PanelArr[i2].removeAll();
         
-        JLabel label1 = new JLabel(String.valueOf(ids[index].contents));
-        JLabel label2 = new JLabel(String.valueOf(ids[index + 1].contents));
-        
-        label1.setBounds(8, 0, 30, 30);
-        label2.setBounds(8, 0, 30, 30);
-        
-        label1.setForeground(Color.BLACK);
-        label2.setForeground(Color.BLACK);
-        
-        PanelArr[index].add(label1);
-        PanelArr[index + 1].add(label2);
-        
-        PanelArr[index].revalidate();
-        PanelArr[index].repaint();
-        PanelArr[index + 1].revalidate();
-        PanelArr[index + 1].repaint();
-        
-        pauseGUI(1000);
-        
-        PanelArr[index].setLocation(PanelArr[index].getX() - 30, PanelArr[index].getY());
-        PanelArr[index + 1].setLocation(PanelArr[index + 1].getX() + 30, PanelArr[index + 1].getY());
-        
-        PanelArr[index].setBackground(secondaryColor);
-        PanelArr[index + 1].setBackground(secondaryColor);
-        
-        PanelArr[index].removeAll();
-        PanelArr[index + 1].removeAll();
-        
-        label1 = new JLabel(String.valueOf(ids[index].contents));
-        label2 = new JLabel(String.valueOf(ids[index + 1].contents));
+        JLabel label1 = new JLabel(String.valueOf(ids[i1].contents));
+        JLabel label2 = new JLabel(String.valueOf(ids[i2].contents));
         
         label1.setBounds(8, 0, 30, 30);
         label2.setBounds(8, 0, 30, 30);
@@ -101,27 +81,55 @@ public class Logic {
         label1.setForeground(Color.BLACK);
         label2.setForeground(Color.BLACK);
         
-        PanelArr[index].add(label1);
-        PanelArr[index + 1].add(label2);
+        PanelArr[i1].add(label1);
+        PanelArr[i2].add(label2);
         
-        PanelArr[index].revalidate();
-        PanelArr[index].repaint();
-        PanelArr[index + 1].revalidate();
-        PanelArr[index + 1].repaint();
+        PanelArr[i1].revalidate();
+        PanelArr[i1].repaint();
+        PanelArr[i2].revalidate();
+        PanelArr[i2].repaint();
+        
+        pauseGUI(1000);
+        
+        PanelArr[i1].setLocation(PanelArr[i1].getX()  - (distance * 30), PanelArr[i1].getY());
+        PanelArr[i2].setLocation(PanelArr[i2].getX() + (distance * 30), PanelArr[i2].getY());
+        
+        PanelArr[i1].setBackground(secondaryColor);
+        PanelArr[i2].setBackground(secondaryColor);
+        
+        PanelArr[i1].removeAll();
+        PanelArr[i2].removeAll();
+        
+        label1 = new JLabel(String.valueOf(ids[i1].contents));
+        label2 = new JLabel(String.valueOf(ids[i2].contents));
+        
+        label1.setBounds(8, 0, 30, 30);
+        label2.setBounds(8, 0, 30, 30);
+        
+        label1.setForeground(Color.BLACK);
+        label2.setForeground(Color.BLACK);
+        
+        PanelArr[i1].add(label1);
+        PanelArr[i2].add(label2);
+        
+        PanelArr[i1].revalidate();
+        PanelArr[i1].repaint();
+        PanelArr[i2].revalidate();
+        PanelArr[i2].repaint();
 
         pauseGUI(1000);
 
-        PanelArr[index].setLocation(PanelArr[index].getX() + 30, PanelArr[index].getY() + 30);
-        PanelArr[index + 1].setLocation(PanelArr[index + 1].getX() - 30, PanelArr[index + 1].getY() + 30);
+        PanelArr[i1].setLocation(PanelArr[i1].getX() + (distance * 30), PanelArr[i1].getY() + 30);
+        PanelArr[i2].setLocation(PanelArr[i2].getX() - (distance * 30), PanelArr[i2].getY() + 30);
         	            
-        PanelArr[index].setBackground(baseColor);
-        PanelArr[index + 1].setBackground(baseColor);
+        PanelArr[i1].setBackground(baseColor);
+        PanelArr[i2].setBackground(baseColor);
         
-        PanelArr[index].removeAll();
-        PanelArr[index + 1].removeAll();
+        PanelArr[i1].removeAll();
+        PanelArr[i2].removeAll();
         
-        label1 = new JLabel(String.valueOf(ids[index + 1].contents));
-        label2 = new JLabel(String.valueOf(ids[index].contents));
+        label1 = new JLabel(String.valueOf(ids[i2].contents));
+        label2 = new JLabel(String.valueOf(ids[i1].contents));
         
         label1.setBounds(8, 0, 30, 30);
         label2.setBounds(8, 0, 30, 30);
@@ -129,36 +137,63 @@ public class Logic {
         label1.setForeground(Color.WHITE);
         label2.setForeground(Color.WHITE);
         
-        PanelArr[index].add(label1);
-        PanelArr[index + 1].add(label2);
+        PanelArr[i1].add(label1);
+        PanelArr[i2].add(label2);
         
-        PanelArr[index].revalidate();
-        PanelArr[index].repaint();
-        PanelArr[index + 1].revalidate();
-        PanelArr[index + 1].repaint();
+        PanelArr[i1].revalidate();
+        PanelArr[i1].repaint();
+        PanelArr[i2].revalidate();
+        PanelArr[i2].repaint();
         
 	}
 	
-	public void BubbleSort(){
-		instance.createBlocks(380,200,10, true);
-		ids = instance.getContent();
+	public void BubbleSort(Block[] ids){
+		this.ids = ids;
 		PanelArr = instance.getPanelArray();
 		RepaintArray();
 		for (int i = 0; i < ids.length - 1; i++) {
 			for (int j = 0; j < ids.length - 1; j++) {
 				if (ids[j].contents < ids[j + 1].contents) {
 					 final int index = j; 
-					 
-					 	AnimateSquares(index, Color.BLACK, Color.green);
-		                
+					 	AnimateSquares(index, index + 1, Color.BLACK, Color.green);
 		                SwapValues(ids[index], ids[index + 1]);
-
 		                instance.RepaintFrame();
 				}	
 			}
 		}
 		RepaintArray();
 	}
+	
+	public void Quicksort(Block[] ids, int start, int end) {
+		this.ids = ids;
+		PanelArr = instance.getPanelArray();
+		RepaintArray();
+		if (end <= start)
+			return;
+		int pivot = Partition(ids, start, end);
+		Quicksort(ids, start, pivot - 1);
+		Quicksort(ids, pivot + 1, end);
+	}
+	
+	private int Partition(Block[] ids, int start, int end) {
+		int pivot = ids[end].contents;
+		int i = start - 1;
+		
+		for (int j = start; j <= end - 1; j++) {
+			if (ids[j].contents < pivot) {
+				i++;
+				AnimateSquares(i, j, Color.BLACK, Color.green);
+				SwapValues(ids[i], ids[j]);
+				instance.RepaintFrame();
+			}
+		}
+		i++;
+		AnimateSquares(i, end, Color.BLACK, Color.green);
+		SwapValues(ids[i], ids[end]);
+		instance.RepaintFrame();
+		return i;
+	}
+	
 		
 	public void TestSwap() {
 		SwapValues(ids[0], ids[1]);

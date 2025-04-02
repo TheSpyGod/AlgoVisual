@@ -12,6 +12,5 @@ public class Application {
 	static private Logic l;
 	public static void main(String[] args) {
 		f = new Frame(500,500, "Title");
-		//f.createBlocks(380,200,10, true);
 	}
 }

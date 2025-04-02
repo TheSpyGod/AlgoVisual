@@ -49,10 +49,14 @@ public class Frame {
 				if (!pressed) {
 				new Thread(() -> {
 					pressed = true;
+		            createBlocks(380,200,10, true);
 		            logic = new Logic(Frame.this);
 		            switch (label) {
 		            case "Bubble Sort":
-		            	logic.BubbleSort();
+		            	logic.BubbleSort(container);
+		            	break;
+		            case "Quicksort":
+		            	logic.Quicksort(container, 0, container.length - 1);
 		            	break;
 		            }
 		            SwingUtilities.invokeLater(() -> pressed = false);
